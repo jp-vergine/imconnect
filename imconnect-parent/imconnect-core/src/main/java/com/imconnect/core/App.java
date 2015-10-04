@@ -3,11 +3,12 @@ package com.imconnect.core;
 /**
  * Hello world!
  *
+ *
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World jp !" );
+        System.out.println( "Hello World Home !" );
     }
 }
