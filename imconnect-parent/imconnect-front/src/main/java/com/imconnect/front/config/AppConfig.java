@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "com.imconnect.front.*" })
+@ComponentScan({ "com.imconnect" })
 @Import({ SecurityConfig.class })
 public class AppConfig {
 

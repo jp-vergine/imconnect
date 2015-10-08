@@ -26,6 +26,19 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.imconnect</groupId>
+			<artifactId>imconnect-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servletapi.version}</version>
