@@ -7,10 +7,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.imconnect.front.service.SecUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+    SecUserDetailsService userDetailsService ;
+
+    @Autowired
+    public void configAuthBuilder(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService); 
+    }
+    
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("mkyong").password("123456").roles("USER");
