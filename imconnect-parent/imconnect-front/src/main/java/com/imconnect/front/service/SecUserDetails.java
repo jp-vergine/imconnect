@@ -24,7 +24,6 @@ public class SecUserDetails implements UserDetails {
 		//Test
 		GrantedAuthority newrole = new SimpleGrantedAuthority("ROLE_ADMIN");
 		ArrayList<GrantedAuthority> temp = new ArrayList<GrantedAuthority>();
-	    temp.addAll(originalRoles);
 	    temp.add(newrole); 
 	    
 	    return Collections.unmodifiableList(temp);
