@@ -11,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.imconnect.core.model.user.User;
 
 public class SecUserDetails implements UserDetails {
-
+	
+	private static final long serialVersionUID = 1L;
+	
+	
 	private User user;
 	
 	public SecUserDetails(User user) {
