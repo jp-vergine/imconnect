@@ -12,7 +12,7 @@ public class HomeController {
  
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
     public String redirect(){
-        return "redirect:/protected/home";
+        return "redirect:/home";
     }
     
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT}, produces = "application/json")

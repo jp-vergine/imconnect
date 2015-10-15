@@ -53,11 +53,13 @@ public class UserController {
     }
  
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<?> create(@ModelAttribute("contact") User user,
+    public ResponseEntity<?> create(@RequestBody User contact,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
-        userService.save(user);
+    	
+    	
+        userService.save(contact);
  
         if (isSearchActivated(searchFor)) {
             return search(searchFor, page, locale, "message.create.success");
@@ -68,15 +70,15 @@ public class UserController {
  
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<?> update(@PathVariable("id") String contactId,
-                                    @RequestBody User user,
+                                    @RequestBody User contact,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
-        if (!contactId.equals(user.getId())) {
+        if (!contactId.equals(contact.getId())) {
             return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
         }
  
-        userService.save(user);
+        userService.save(contact);
  
         if (isSearchActivated(searchFor)) {
             return search(searchFor, page, locale, "message.update.success");
@@ -93,7 +95,7 @@ public class UserController {
                                     Locale locale) {
  
         try {
-            userService.delete(user);
+            userService.delete(user.getId());
         } catch (AccessDeniedException e) {
             return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         }

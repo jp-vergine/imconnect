@@ -11,7 +11,7 @@
         </h3>
     </div>
     <div class="modal-body">
-        <form name="newContactForm" novalidate >
+        <form name="newUserForm" novalidate >
             <div class="pull-left">
                 <div>
                     <div class="input-append">
@@ -21,14 +21,14 @@
                         <input type="text"
                                required
                                autofocus
-                               ng-model="contact.name"
-                               name="name"
+                               ng-model="contact.pseudo"
+                               name="pseudo"
                                placeholder="<spring:message code='contact'/>&nbsp;<spring:message code='contacts.name'/>"/>
                     </div>
                     <div class="input-append">
                         <label>
                                 <span class="alert alert-error"
-                                      ng-show="displayValidationError && newContactForm.name.$error.required">
+                                      ng-show="displayValidationError && newUserForm.pseudo.$error.required">
                                         <spring:message code="required"/>
                                 </span>
                         </label>
@@ -48,27 +48,7 @@
                     <div class="input-append">
                         <label>
                                 <span class="alert alert-error"
-                                      ng-show="displayValidationError && newContactForm.email.$error.required">
-                                    <spring:message code="required"/>
-                                </span>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <div class="input-append">
-                        <label>* <spring:message code="contacts.phone"/>:</label>
-                    </div>
-                    <div class="input-append">
-                        <input type="text"
-                               required
-                               ng-model="contact.phoneNumber"
-                               name="phoneNumber"
-                               placeholder="<spring:message code='sample.phone'/> "/>
-                    </div>
-                    <div class="input-append">
-                        <label>
-                                <span class="alert alert-error"
-                                      ng-show="displayValidationError && newContactForm.phoneNumber.$error.required">
+                                      ng-show="displayValidationError && newUserForm.email.$error.required">
                                     <spring:message code="required"/>
                                 </span>
                         </label>
@@ -76,7 +56,7 @@
                 </div>
                 <input type="submit"
                        class="btn btn-inverse"
-                       ng-click="createContact(newContactForm);"
+                       ng-click="createContact(newUserForm);"
                        value='<spring:message code="create"/>'/>
                 <button class="btn btn-inverse"
                         data-dismiss="modal"

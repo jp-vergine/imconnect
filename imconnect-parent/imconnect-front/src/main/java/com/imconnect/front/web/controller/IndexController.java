@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/protected/home")
+@RequestMapping(value = "/home")
 public class IndexController {
  
     @RequestMapping(method = RequestMethod.GET)

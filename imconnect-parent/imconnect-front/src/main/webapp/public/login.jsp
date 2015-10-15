@@ -25,8 +25,7 @@
 		</c:if>
 
 		<form method="post" action="j_spring_security_check">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
+<%-- 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 			<div>
 				<input name="username" id="username" type="text" class="span12"
 					placeholder="<spring:message code='sample.email' /> "><br />

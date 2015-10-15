@@ -1,4 +1,4 @@
-package com.imconnect.front.service;
+package com.imconnect.front.service.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

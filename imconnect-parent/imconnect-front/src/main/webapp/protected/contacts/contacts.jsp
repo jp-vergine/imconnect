@@ -20,7 +20,7 @@
     <h4>
         <div ng-class="{'': state == 'list', 'none': state != 'list'}">
             <p class="text-center">
-                <spring:message code="message.total.records.found"/>:&nbsp;{{page.totalContacts}}
+                <spring:message code="message.total.records.found"/>:&nbsp;{{page.totalUsers}}
             </p>
         </div>
     </h4>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imconnect.core.repositories.user.UserRepository;
-import com.imconnect.front.service.SecUserDetails;
+import com.imconnect.front.service.security.SecUserDetails;
 
 
 @Controller
@@ -44,9 +44,6 @@ public class HelloController {
 			logger.debug("Access to admin page with account: " + user.getUsername());
 		}
 		
-		logger.error("Ceci est un test de log");
-		
-		
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security");
 		model.addObject("message", "This is protected page - Admin Page!");
@@ -56,15 +53,4 @@ public class HelloController {
 
 	}
 
-	@RequestMapping(value = "/dba**", method = RequestMethod.GET)
-	public ModelAndView dbaPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page - Database Page!");
-		model.setViewName("admin");
-
-		return model;
-
-	}
 }

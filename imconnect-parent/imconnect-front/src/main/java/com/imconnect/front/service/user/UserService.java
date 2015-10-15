@@ -17,7 +17,7 @@ import com.imconnect.front.vo.UserListVO;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService{
 
 	@Autowired
 	private UserRepository userRepository;
@@ -40,8 +40,8 @@ public class UserService {
 	}
 
 	@Secured("ROLE_ADMIN")
-	public void delete(User user) {
-		userRepository.delete(user);
+	public void delete(Long id) {
+		userRepository.delete(id);
 	}
 
 	@Transactional(readOnly = true)

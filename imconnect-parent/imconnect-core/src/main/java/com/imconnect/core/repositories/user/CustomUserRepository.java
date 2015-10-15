@@ -4,7 +4,10 @@ import com.imconnect.core.model.user.User;
 
 public interface CustomUserRepository {
 
-	Long countAllUsers();
+	public Long countAllUsers();
 	
-	User findByPseudo(String pseudo);
+	public User findByPseudo(String pseudo);
+	
+	public User save(User user);
+	
 }

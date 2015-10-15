@@ -7,7 +7,7 @@ import com.imconnect.core.model.user.User;
 public class UserListVO {
 
 	private int pagesCount;
-    private long totalContacts;
+    private long totalUsers;
 
     private String actionMessage;
     private String searchMessage;
@@ -17,10 +17,10 @@ public class UserListVO {
     public UserListVO() {
     }
 
-    public UserListVO(int pages, long totalContacts, List<User> users) {
+    public UserListVO(int pages, long totalUsers, List<User> users) {
         this.pagesCount = pages;
         this.users = users;
-        this.totalContacts = totalContacts;
+        this.totalUsers = totalUsers;
     }
 
     public int getPagesCount() {
@@ -39,15 +39,15 @@ public class UserListVO {
 		this.users = users;
 	}
 
-	public long getTotalContacts() {
-        return totalContacts;
-    }
+    public long getTotalUsers() {
+		return totalUsers;
+	}
 
-    public void setTotalContacts(long totalContacts) {
-        this.totalContacts = totalContacts;
-    }
+	public void setTotalUsers(long totalUsers) {
+		this.totalUsers = totalUsers;
+	}
 
-    public String getActionMessage() {
+	public String getActionMessage() {
         return actionMessage;
     }
 

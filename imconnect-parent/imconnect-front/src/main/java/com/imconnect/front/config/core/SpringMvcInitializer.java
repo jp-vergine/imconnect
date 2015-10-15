@@ -4,8 +4,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import com.imconnect.front.config.AppConfig;
 
-public class SpringMvcInitializer 
-       extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {

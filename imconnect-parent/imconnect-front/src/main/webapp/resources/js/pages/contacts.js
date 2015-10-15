@@ -28,9 +28,7 @@ function contactsController($scope, $http) {
 
         var config = {params: {page: $scope.pageToGet}};
         
-        alert("url3: " + url + "list?page=0");
-        
-        $http.get(url + "list?page=0", config)
+        $http.get(url + "list", config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, null, false);
             })
@@ -44,9 +42,7 @@ function contactsController($scope, $http) {
         if (data.pagesCount > 0) {
             $scope.state = 'list';
 
-            alert("populateTable call");
-            
-            $scope.page = {source: data.users, currentPage: $scope.pageToGet, pagesCount: data.pagesCount, totalContacts : data.totalContacts};
+            $scope.page = {source: data.users, currentPage: $scope.pageToGet, pagesCount: data.pagesCount, totalUsers : data.totalUsers};
 
             if($scope.page.pagesCount <= $scope.page.currentPage){
                 $scope.pageToGet = $scope.page.pagesCount - 1;
@@ -151,20 +147,18 @@ function contactsController($scope, $http) {
 
         $scope.lastAction = 'create';
 
-        
         var url = $scope.url;
 
-        
-        
-        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
-
+//        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+        var config = {params: {page: $scope.pageToGet}};
         $scope.addSearchParametersIfNeeded(config, false);
 
         $scope.startDialogAjaxRequest();
         
-        alert("create url: " + url);
-
-        $http.post(url, $.param($scope.contact), config)
+        alert("$scope.contact: " + $scope.contact.email);
+        alert("$scope.contact: " + $scope.contact.pseudo);
+        
+        $http.post(url, $scope.contact, config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, "#addContactsModal", false);
             })
