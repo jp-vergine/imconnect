@@ -35,7 +35,7 @@ public class SequenceRepositoryImpl implements SequenceRepository {
             mongoOperation.findAndModify(query, update, options, SequenceId.class);
 
 	  if (seqId == null) {
-		throw new SequenceException("Unable to get sequence id for key : " + key);
+		  throw new SequenceException("Unable to get sequence id for key : " + key);
 	  }
 
 	  return seqId.getSeq();

@@ -35,7 +35,7 @@ public class UserController {
     @Autowired
     private MessageSource messageSource;
  
-    @Value("5")
+    @Value("10")
     private int maxResults;
  
     @RequestMapping(method = RequestMethod.GET)
