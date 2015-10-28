@@ -28,7 +28,9 @@ public class UserRepositoryImpl implements CustomUserRepository {
 	 */
 	public User save(User user) {
 		
-		user.setId(sequenceRepository.getNextSequenceId(USER_SEQ_KEY));
+		if(user.getId()==null)
+			user.setId(sequenceRepository.getNextSequenceId(USER_SEQ_KEY));
+		
 		mongoTemplate.save(user);
 		return user;
 	}

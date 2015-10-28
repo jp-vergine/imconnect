@@ -15,7 +15,7 @@ function contactsController($scope, $http) {
     $scope.displaySearchButton = false;
     $scope.displayCreateContactButton = false;
 
-    $scope.contact = {}
+    $scope.user = {}
 
     $scope.searchFor = ""
 
@@ -83,7 +83,7 @@ function contactsController($scope, $http) {
     $scope.exit = function (modalId) {
         $(modalId).modal('hide');
 
-        $scope.contact = {};
+        $scope.user = {};
         $scope.errorOnSubmit = false;
         $scope.errorIllegalAccess = false;
         $scope.displayValidationError = false;
@@ -136,7 +136,7 @@ function contactsController($scope, $http) {
     }
 
     $scope.resetContact = function(){
-        $scope.contact = {};
+        $scope.user = {};
     };
 
     $scope.createContact = function (newContactForm) {
@@ -154,11 +154,8 @@ function contactsController($scope, $http) {
         $scope.addSearchParametersIfNeeded(config, false);
 
         $scope.startDialogAjaxRequest();
-        
-        alert("$scope.contact: " + $scope.contact.email);
-        alert("$scope.contact: " + $scope.contact.pseudo);
-        
-        $http.post(url, $scope.contact, config)
+               
+        $http.post(url, $scope.user, config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, "#addContactsModal", false);
             })
@@ -167,10 +164,33 @@ function contactsController($scope, $http) {
             });
     };
 
-    $scope.selectedContact = function (contact) {
-        var selectedContact = angular.copy(contact);
-        $scope.contact = selectedContact;
+    $scope.selectedContact = function (user) {
+        var selectedUser = angular.copy(user);
+        $scope.user = selectedUser;
+        alert("test");
+        alert(" $scope.user.id: " +  $scope.user.id);
     }
+    
+    $scope.deleteContact = function () {
+        $scope.lastAction = 'delete';
+
+        var url = $scope.url + $scope.user.id;
+
+        $scope.startDialogAjaxRequest();
+
+        var params = {searchFor: $scope.searchFor, page: $scope.pageToGet};
+
+        $http({
+            method: 'DELETE',
+            url: url,
+            params: params
+        }).success(function (data) {
+                $scope.resetContact();
+                $scope.finishAjaxCallOnSuccess(data, "#deleteContactsModal", false);
+            }).error(function(data, status, headers, config) {
+                $scope.handleErrorInDialogs(status);
+            });
+    };
 
     $scope.updateContact = function (updateContactForm) {
         if (!updateContactForm.$valid) {
@@ -180,7 +200,7 @@ function contactsController($scope, $http) {
 
         $scope.lastAction = 'update';
 
-        var url = $scope.url + $scope.contact.id;
+        var url = $scope.url + $scope.user.id;
 
         $scope.startDialogAjaxRequest();
 
@@ -188,7 +208,7 @@ function contactsController($scope, $http) {
 
         $scope.addSearchParametersIfNeeded(config, false);
 
-        $http.put(url, $scope.contact, config)
+        $http.put(url, $scope.user, config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, "#updateContactsModal", false);
             })
@@ -225,26 +245,6 @@ function contactsController($scope, $http) {
             });
     };
 
-    $scope.deleteContact = function () {
-        $scope.lastAction = 'delete';
-
-        var url = $scope.url + $scope.contact.id;
-
-        $scope.startDialogAjaxRequest();
-
-        var params = {searchFor: $scope.searchFor, page: $scope.pageToGet};
-
-        $http({
-            method: 'DELETE',
-            url: url,
-            params: params
-        }).success(function (data) {
-                $scope.resetContact();
-                $scope.finishAjaxCallOnSuccess(data, "#deleteContactsModal", false);
-            }).error(function(data, status, headers, config) {
-                $scope.handleErrorInDialogs(status);
-            });
-    };
 
     $scope.resetSearch = function(){
         $scope.searchFor = "";

@@ -21,7 +21,7 @@
                         <input type="text"
                                required
                                autofocus
-                               ng-model="contact.pseudo"
+                               ng-model="user.pseudo"
                                name="pseudo"
                                placeholder="<spring:message code='contact'/>&nbsp;<spring:message code='contacts.name'/>"/>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="input-append">
                         <input type="text"
                                required
-                               ng-model="contact.email"
+                               ng-model="user.email"
                                name="email"
                                placeholder="<spring:message code='sample.email'/> "/>
                     </div>
@@ -87,9 +87,9 @@
         <form name="updateContactForm" novalidate>
             <input type="hidden"
                    required
-                   ng-model="contact.id"
+                   ng-model="user.id"
                    name="id"
-                   value="{{contact.id}}"/>
+                   value="{{user.id}}"/>
 
             <div class="pull-left">
                 <div>
@@ -100,8 +100,8 @@
                         <input type="text"
                                autofocus
                                required
-                               ng-model="contact.name"
-                               name="name"
+                               ng-model="user.pseudo"
+                               name="pseudo"
                                placeholder="<spring:message code='contact'/>&nbsp;<spring:message code='contacts.name'/> "/>
                     </div>
                     <div class="input-append">
@@ -120,7 +120,7 @@
                     <div class="input-append">
                         <input type="text"
                                required
-                               ng-model="contact.email"
+                               ng-model="user.email"
                                name="email"
                                placeholder="<spring:message code='sample.email'/> "/>
                     </div>
@@ -128,26 +128,6 @@
                         <label>
                                 <span class="alert alert-error"
                                       ng-show="displayValidationError && updateContactForm.email.$error.required">
-                                    <spring:message code="required"/>
-                                </span>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <div class="input-append">
-                        <label>* <spring:message code="contacts.phone"/>:</label>
-                    </div>
-                    <div class="input-append">
-                        <input type="text"
-                               required
-                               ng-model="contact.phoneNumber"
-                               name="phoneNumber"
-                               placeholder="<spring:message code='sample.phone'/> "/>
-                    </div>
-                    <div class="input-append">
-                        <label>
-                                <span class="alert alert-error"
-                                      ng-show="displayValidationError && updateContactForm.phoneNumber.$error.required">
                                     <spring:message code="required"/>
                                 </span>
                         </label>
@@ -183,7 +163,7 @@
     </div>
     <div class="modal-body">
         <form name="deleteContactForm" novalidate>
-            <p><spring:message code="delete.confirm"/>:&nbsp;{{contact.name}}?</p>
+            <p><spring:message code="delete.confirm"/>:&nbsp;{{user.pseudo}}?</p>
 
             <input type="submit"
                    class="btn btn-inverse"

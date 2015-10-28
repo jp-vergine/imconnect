@@ -73,4 +73,6 @@ public class MongoDbConfig extends AbstractMongoConfiguration {
 //	    converters.add(new TimeZoneReadConverter());
 //	    return new CustomConversions(converters);
 //	}
+	
+	//mongod --dbpath "C:\dev\program\mongodb3.0\imconnect"
 }

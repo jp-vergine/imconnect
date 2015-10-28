@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imconnect.core.model.user.User;
+import com.imconnect.front.exception.PseudoInUseException;
 import com.imconnect.front.service.user.UserService;
 import com.imconnect.front.vo.UserListVO;
  
@@ -53,13 +54,13 @@ public class UserController {
     }
  
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<?> create(@RequestBody User contact,
+    public ResponseEntity<?> create(@RequestBody User user,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
     	
     	
-        userService.save(contact);
+        userService.save(user);
  
         if (isSearchActivated(searchFor)) {
             return search(searchFor, page, locale, "message.create.success");
@@ -69,16 +70,21 @@ public class UserController {
     }
  
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<?> update(@PathVariable("id") String contactId,
+    public ResponseEntity<?> update(@PathVariable("id") int contactId,
                                     @RequestBody User contact,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
-        if (!contactId.equals(contact.getId())) {
+        
+    	if (contactId!=contact.getId().intValue()) {
             return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
         }
  
-        userService.save(contact);
+        try {
+			userService.update(contact);
+		} catch (PseudoInUseException e) {
+			return new ResponseEntity<String>("Le pseudo est déjà utilisé", HttpStatus.BAD_REQUEST);
+		}
  
         if (isSearchActivated(searchFor)) {
             return search(searchFor, page, locale, "message.update.success");
@@ -89,13 +95,13 @@ public class UserController {
  
     @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<?> delete(@PathVariable("contactId") int contactId,
-    								@RequestBody User user,
+    								/*@RequestBody User user,*/
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
  
         try {
-            userService.delete(user.getId());
+            userService.delete(Long.valueOf(contactId));
         } catch (AccessDeniedException e) {
             return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         }

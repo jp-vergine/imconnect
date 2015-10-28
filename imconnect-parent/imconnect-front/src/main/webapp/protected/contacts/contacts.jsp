@@ -83,19 +83,19 @@
                 <tr ng-repeat="user in page.source">
                     <td class="tdContactsCentered">{{user.pseudo}}</td>
                     <td class="tdContactsCentered">{{user.pseudo}}</td>
-                    <td class="tdContactsCentered">{{user.pseudo}}</td>
+                    <td class="tdContactsCentered">{{user.id}}</td>
                     <td class="width15">
                         <div class="text-center">
-                            <input type="hidden" value="{{contact.id}}"/>
+                            <input type="hidden" value="{{user.id}}"/>
                             <a href="#updateContactsModal"
-                               ng-click="selectedContact(contact);"
+                               ng-click="selectedContact(user);"
                                role="button"
                                title="<spring:message code="update"/>&nbsp;<spring:message code="contact"/>"
                                class="btn btn-inverse" data-toggle="modal">
                                 <i class="icon-pencil"></i>
                             </a>
                             <a href="#deleteContactsModal"
-                               ng-click="selectedContact(contact);"
+                               ng-click="selectedContact(user);"
                                role="button"
                                title="<spring:message code="delete"/>&nbsp;<spring:message code="contact"/>"
                                class="btn btn-inverse" data-toggle="modal">

@@ -1,6 +1,7 @@
 package com.imconnect.front.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.imconnect.core.model.user.User;
 import com.imconnect.core.repositories.user.UserRepository;
+import com.imconnect.front.exception.PseudoInUseException;
 import com.imconnect.front.vo.UserListVO;
 
 
@@ -38,8 +40,20 @@ public class UserService{
 	public void save(User user) {
 		userRepository.save(user);
 	}
+	
+	public void update(User copy) throws PseudoInUseException{
+		
+		User userPseudo = userRepository.findByPseudo(copy.getPseudo());
+		
+		//Le pseudo est il déjà utilisé par un autre utilisateur?
+		if(userPseudo!=null && !userPseudo.getId().equals(copy.getId())){
+			throw new PseudoInUseException();
+		}
+				
+		userRepository.save(copy);
+	}
 
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	public void delete(Long id) {
 		userRepository.delete(id);
 	}
@@ -88,4 +102,6 @@ public class UserService{
 	private boolean hasDataInDataBase(Page<User> result) {
 		return result.getTotalElements() > 0;
 	}
+
+	
 }
