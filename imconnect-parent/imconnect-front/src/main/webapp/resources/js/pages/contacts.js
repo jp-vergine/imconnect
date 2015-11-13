@@ -150,14 +150,11 @@ function contactsController($scope, $http) {
 
         var url = $scope.url;
 
-//        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
-        var config = {params: {page: $scope.pageToGet}};
+        var config = {params: {page: $scope.pageToGet}, headers: {'Content-Type': 'application/json; charset=UTF-8'}};
         $scope.addSearchParametersIfNeeded(config, false);
 
         $scope.startDialogAjaxRequest();
-               
-        alert(config);
-        
+                       
         $http.post(url, $scope.user, config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, "#addContactsModal", false);

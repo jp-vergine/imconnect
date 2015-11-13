@@ -69,7 +69,7 @@
         </form>
     </div>
     <span class="alert alert-error dialogErrorMessage" ng-show="errorOnSubmit">
-       Erreur: \u00e9 \u00e9 : {{errorMessage}}
+       {{errorMessage}}
     </span>
 </div>
 

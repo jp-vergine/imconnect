@@ -95,11 +95,10 @@ public class UserService{
 		return new UserListVO(result.getTotalPages(), result.getTotalElements(), result.getContent());
 	}
 
-	private Page<User> executeQueryFindByName(int page, int maxResults, String name) {
+	@Transactional(readOnly = true)
+	private Page<User> executeQueryFindByName(int page, int maxResults, String pseudo) {
 		final PageRequest pageRequest = new PageRequest(page, maxResults, sortByNameASC());
-
-		//TODO
-		return null;//userRepository.findByPseudo(pageRequest, "%" + name + "%");
+		return userRepository.findByPseudoLike(pageRequest, pseudo);
 	}
 
 	private boolean isUserAfterOrOnLastPage(int page, Page<User> result) {

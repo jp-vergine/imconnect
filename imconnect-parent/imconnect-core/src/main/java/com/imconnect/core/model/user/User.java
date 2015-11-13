@@ -1,5 +1,7 @@
 package com.imconnect.core.model.user;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +12,7 @@ public class User {
 	private Long id;
 	private String email;
 	private String pseudo;
+	private Date dateInscription;
 
 	public User() {
 	}
@@ -36,5 +39,13 @@ public class User {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+	public Date getDateInscription() {
+		return dateInscription;
+	}
+
+	public void setDateInscription(Date dateInscription) {
+		this.dateInscription = dateInscription;
 	}
 }

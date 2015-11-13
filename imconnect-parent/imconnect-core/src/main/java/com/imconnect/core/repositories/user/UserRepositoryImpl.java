@@ -1,6 +1,9 @@
 package com.imconnect.core.repositories.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -49,4 +52,15 @@ public class UserRepositoryImpl implements CustomUserRepository {
 		User user = operations.findOne(new BasicQuery("{ pseudo : '"+ pseudo + "' }"), User.class);
 		return user;
 	}
+
+//	/**
+//	 * Find all user with pseudo like
+//	 */
+//	public Page<User> findByPseudo(PageRequest pageRequest, String pseudo) {
+//		
+//		MongodbQuery<User> countQuery = createQuery();
+//		MongodbQuery<User> query = createQuery();
+//
+//		return new PageImpl(applyPagination(query, pageable).list(), pageable, countQuery.count());
+//	}
 }

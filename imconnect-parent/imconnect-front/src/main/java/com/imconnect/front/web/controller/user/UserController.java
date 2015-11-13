@@ -24,7 +24,7 @@ import com.imconnect.front.service.user.UserService;
 import com.imconnect.front.vo.UserListVO;
  
 @Controller
-@RequestMapping(value = "/protected/contacts")
+@RequestMapping(value = "/protected/contacts", produces = "application/json;charset=UTF-8")
 public class UserController {
  
     private static final String DEFAULT_PAGE_DISPLAYED_TO_USER = "0";
@@ -40,7 +40,7 @@ public class UserController {
  
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView welcome() {
-        return new ModelAndView("contactsList");
+        return new ModelAndView("usersList");
     }
     
 //    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
@@ -48,12 +48,12 @@ public class UserController {
 //        return createListAllResponse(0, locale);
 //    }
  
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity<?> list(@RequestParam int page, Locale locale) {
         return createListAllResponse(page, locale);
     }
     
-    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody User user,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
@@ -72,7 +72,7 @@ public class UserController {
         return createListAllResponse(page, locale, "message.create.success");
     }
  
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@PathVariable("id") int contactId,
                                     @RequestBody User contact,
                                     @RequestParam(required = false) String searchFor,
@@ -96,7 +96,7 @@ public class UserController {
         return createListAllResponse(page, locale, "message.update.success");
     }
  
-    @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable("contactId") int contactId,
     								/*@RequestBody User user,*/
                                     @RequestParam(required = false) String searchFor,
@@ -116,7 +116,7 @@ public class UserController {
         return createListAllResponse(page, locale, "message.delete.success");
     }
  
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<?> search(@PathVariable("name") String name,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
