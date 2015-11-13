@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div id="addContactsModal"
      class="modal hide fade in centering insertAndUpdateDialogs"
@@ -15,7 +16,7 @@
             <div class="pull-left">
                 <div>
                     <div class="input-append">
-                        <label>* <spring:message code="contacts.name"/>:</label>
+                        <label>* <spring:message code="contacts.name"/> :</label>
                     </div>
                     <div class="input-append">
                         <input type="text"
@@ -67,9 +68,8 @@
             </div>
         </form>
     </div>
-    <span class="alert alert-error dialogErrorMessage"
-          ng-show="errorOnSubmit">
-        <spring:message code="request.error"/>
+    <span class="alert alert-error dialogErrorMessage" ng-show="errorOnSubmit">
+       Erreur: \u00e9 \u00e9 : {{errorMessage}}
     </span>
 </div>
 
@@ -145,9 +145,8 @@
             </div>
         </form>
     </div>
-    <span class="alert alert-error dialogErrorMessage"
-          ng-show="errorOnSubmit">
-        <spring:message code="request.error"/>
+    <span class="alert alert-error dialogErrorMessage" ng-show="errorOnSubmit">
+    	{{errorMessage}}
     </span>
 </div>
 

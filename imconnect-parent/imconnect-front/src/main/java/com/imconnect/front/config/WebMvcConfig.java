@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @EnableWebMvc
 @ComponentScan({ "com.imconnect" })
 @Import({ SecurityConfig.class })
-public class AppConfig extends WebMvcConfigurerAdapter{
+public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
 	/*@Bean
 	public InternalResourceViewResolver viewResolver() {
@@ -91,6 +91,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
               mediaType("less", MediaType.APPLICATION_XHTML_XML).
               mediaType("json", MediaType.APPLICATION_JSON);
     }
+    
     
     @Bean
     public MappingJackson2HttpMessageConverter converterJackson() {

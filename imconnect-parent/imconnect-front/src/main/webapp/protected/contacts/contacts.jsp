@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row-fluid" ng-controller="contactsController">
 
     <h2>
         <p class="text-center">
-            <spring:message code='contacts.header'/>
+            <spring:message code='contacts.header'/>La fête mon ami !
             <a href="#searchContactsModal"
                id="contactsHeaderButton"
                role="button"
@@ -59,7 +59,7 @@
         <div ng-class="{'alert alert-block alert-error': state == 'error', 'none': state != 'error'}">
             <h4><i class="icon-info-sign"></i> <spring:message code="error.generic.header"/></h4><br/>
 
-            <p><spring:message code="error.generic.text"/></p>
+            <p><spring:message code="error.generic.text"/></p> !!!
         </div>
 
         <div ng-class="{'alert alert-info': state == 'noresult', 'none': state != 'noresult'}">

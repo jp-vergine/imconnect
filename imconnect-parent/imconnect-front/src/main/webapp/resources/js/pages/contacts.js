@@ -109,7 +109,7 @@ function contactsController($scope, $http) {
         $scope.state = 'busy';
     }
 
-    $scope.handleErrorInDialogs = function (status) {
+    $scope.handleErrorInDialogs = function (data, status) {
         $("#loadingModal").modal('hide');
         $scope.state = $scope.previousState;
 
@@ -121,6 +121,7 @@ function contactsController($scope, $http) {
 
         $scope.errorOnSubmit = true;
         $scope.lastAction = '';
+        $scope.errorMessage = data;
     }
 
     $scope.addSearchParametersIfNeeded = function(config, isPagination) {
@@ -155,20 +156,20 @@ function contactsController($scope, $http) {
 
         $scope.startDialogAjaxRequest();
                
+        alert(config);
+        
         $http.post(url, $scope.user, config)
             .success(function (data) {
                 $scope.finishAjaxCallOnSuccess(data, "#addContactsModal", false);
             })
             .error(function(data, status, headers, config) {
-                $scope.handleErrorInDialogs(status);
+                $scope.handleErrorInDialogs(data, status);
             });
     };
 
     $scope.selectedContact = function (user) {
         var selectedUser = angular.copy(user);
         $scope.user = selectedUser;
-        alert("test");
-        alert(" $scope.user.id: " +  $scope.user.id);
     }
     
     $scope.deleteContact = function () {
@@ -188,7 +189,7 @@ function contactsController($scope, $http) {
                 $scope.resetContact();
                 $scope.finishAjaxCallOnSuccess(data, "#deleteContactsModal", false);
             }).error(function(data, status, headers, config) {
-                $scope.handleErrorInDialogs(status);
+                $scope.handleErrorInDialogs(data, status);
             });
     };
 
@@ -204,7 +205,8 @@ function contactsController($scope, $http) {
 
         $scope.startDialogAjaxRequest();
 
-        var config = {}
+//        var config = {}
+        var config = {headers: {'Content-Type': 'application/json; charset=UTF-8'}};
 
         $scope.addSearchParametersIfNeeded(config, false);
 
@@ -213,7 +215,7 @@ function contactsController($scope, $http) {
                 $scope.finishAjaxCallOnSuccess(data, "#updateContactsModal", false);
             })
             .error(function(data, status, headers, config) {
-                $scope.handleErrorInDialogs(status);
+                $scope.handleErrorInDialogs(data, status);
             });
     };
 
@@ -241,7 +243,7 @@ function contactsController($scope, $http) {
                 $scope.displaySearchMessage = true;
             })
             .error(function(data, status, headers, config) {
-                $scope.handleErrorInDialogs(status);
+                $scope.handleErrorInDialogs(data, status);
             });
     };
 

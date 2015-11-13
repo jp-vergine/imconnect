@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,19 +48,22 @@ public class UserController {
 //        return createListAllResponse(0, locale);
 //    }
  
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public ResponseEntity<?> list(@RequestParam int page, Locale locale) {
         return createListAllResponse(page, locale);
     }
- 
+    
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> create(@RequestBody User user,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
-                                    Locale locale) {
+                                    Locale locale) throws Exception{
     	
-    	
-        userService.save(user);
+    	try {
+    		userService.save(user);
+    	} catch (PseudoInUseException e) {
+    		throw new PseudoInUseException();
+    	}
  
         if (isSearchActivated(searchFor)) {
             return search(searchFor, page, locale, "message.create.success");
@@ -69,12 +72,12 @@ public class UserController {
         return createListAllResponse(page, locale, "message.create.success");
     }
  
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
     public ResponseEntity<?> update(@PathVariable("id") int contactId,
                                     @RequestBody User contact,
                                     @RequestParam(required = false) String searchFor,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
-                                    Locale locale) {
+                                    Locale locale) throws Exception{
         
     	if (contactId!=contact.getId().intValue()) {
             return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
@@ -83,7 +86,7 @@ public class UserController {
         try {
 			userService.update(contact);
 		} catch (PseudoInUseException e) {
-			return new ResponseEntity<String>("Le pseudo est déjà utilisé", HttpStatus.BAD_REQUEST);
+			throw new PseudoInUseException();
 		}
  
         if (isSearchActivated(searchFor)) {
@@ -93,7 +96,7 @@ public class UserController {
         return createListAllResponse(page, locale, "message.update.success");
     }
  
-    @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
     public ResponseEntity<?> delete(@PathVariable("contactId") int contactId,
     								/*@RequestBody User user,*/
                                     @RequestParam(required = false) String searchFor,
@@ -113,7 +116,7 @@ public class UserController {
         return createListAllResponse(page, locale, "message.delete.success");
     }
  
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public ResponseEntity<?> search(@PathVariable("name") String name,
                                     @RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int page,
                                     Locale locale) {
@@ -177,4 +180,10 @@ public class UserController {
     private boolean isSearchActivated(String searchFor) {
         return !StringUtils.isEmpty(searchFor);
     }
+    
+    @ExceptionHandler(PseudoInUseException.class)
+	public ResponseEntity<?> handleCustomException(PseudoInUseException ex, Locale locale) {
+    	return new ResponseEntity<String>(messageSource.getMessage("users.error.pseudo.inuse", null, null, locale), HttpStatus.BAD_REQUEST);
+    }
+    
 }

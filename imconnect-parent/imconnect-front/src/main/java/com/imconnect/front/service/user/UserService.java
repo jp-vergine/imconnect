@@ -1,7 +1,6 @@
 package com.imconnect.front.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -37,7 +36,15 @@ public class UserService{
 		return buildResult(result);
 	}
 
-	public void save(User user) {
+	public void save(User user) throws PseudoInUseException {
+		
+		User userPseudo = userRepository.findByPseudo(user.getPseudo());
+		
+		//Le pseudo est il déjà utilisé par un autre utilisateur?
+		if(userPseudo!=null){
+			throw new PseudoInUseException();
+		}
+		
 		userRepository.save(user);
 	}
 	
